@@ -8,25 +8,29 @@
                 <form>
                     <fieldset>
                         <fieldset class="form-group">
-                            <input class="form-control" type="text" placeholder="URL of profile picture">
+                            <input class="form-control" type="text" placeholder="URL of profile picture" ng-model="url">
                         </fieldset>
                         <fieldset class="form-group">
-                            <input class="form-control form-control-lg" type="text" placeholder="Your Name">
+                            <input class="form-control form-control-lg" type="text" placeholder="Your Name" ng-model="username">
                         </fieldset>
                         <fieldset class="form-group">
-                            <textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you"></textarea>
+                            <textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you" ng-model="bio"></textarea>
                         </fieldset>
                         <fieldset class="form-group">
-                            <input class="form-control form-control-lg" type="text" placeholder="Email">
+                            <input class="form-control form-control-lg" type="text" placeholder="Email" ng-model="email">
                         </fieldset>
                         <fieldset class="form-group">
-                            <input class="form-control form-control-lg" type="password" placeholder="Password">
+                            <input class="form-control form-control-lg" type="password" placeholder="Password" ng-model="password">
                         </fieldset>
-                        <button class="btn btn-lg btn-primary pull-xs-right">
+                        <button class="btn btn-lg btn-primary pull-xs-right" ng-click="update()">
                             Update Settings
                         </button>
                     </fieldset>
                 </form>
+                <hr>
+                <button class="btn btn-outline-danger" ng-click="logOut()">
+                    Or click here to logout.
+                </button>
             </div>
 
         </div>

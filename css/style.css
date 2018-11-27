@@ -1,0 +1,33 @@
+.pagination-page {
+    display: inline;
+    list-style-type: none;
+}
+
+.pagination-page a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+.pagination-page a:hover{
+    background-color:#ddd;
+}
+.active-page{
+    background-color:#5CB85C;
+}
+.article-preview{
+    overflow: auto;
+    overflow-x: hidden;
+    /* display: inline-block; */
+}
+.auth{
+    display: none;
+}
+
+.btn-active {
+    color: #fff;
+    background-color: red;
+    border-color: #5CB85C;
+}
