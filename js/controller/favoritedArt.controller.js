@@ -33,7 +33,6 @@
                             $scope.notArticle = true;
                         } else if ($scope.totalItems <= 5) {
                             $scope.paginationShow = false;
-                            // $scope.notArticle = true;
                         } else {
                             $scope.paginationShow = true;
                         }

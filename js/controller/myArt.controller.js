@@ -21,11 +21,8 @@
                 ({ data: { profile: $scope.profile } } = data);
                 $scope.show = $scope.profile.following;
             });
-
             $scope.notArticle = false;
-
             $scope.isFeed = true;
-
             $scope.load = (select) => {
                 if (select === 'My' && $scope.isFeed === false) {
                     $scope.isFeed = true;
@@ -34,19 +31,12 @@
                     $scope.isFeed = false;
                 }
             }
-
-
             if ($stateParams.username == $window.localStorage.getItem('username')) {
                 $scope.showFollow = "Edit ";
             } else {
                 $scope.showFollow = "Follow "
             }
             console.log($scope.showFollow);
-
-
-
-
-
             var reques = function (offset) {
                 if ($stateParams.username == $window.localStorage.getItem('username')) {
                     var req = {
@@ -62,11 +52,9 @@
                         url: `https://conduit.productionready.io/api/articles?author=${$stateParams.username}&limit=5&offset=${offset}`
                     }
                 }
-
                 $http(req).then(data => {
                     ({ data: { articles: $scope.articles } } = data);
                     $scope.totalItems = data.data.articlesCount;
-                    // console.log(data.data.articlesCount);
                     $scope.notMyArticle = false;
                     $scope.currentPage = 1;
                     $scope.itemsPerPage = 5;
@@ -75,17 +63,13 @@
                         $scope.notMyArticle = true;
                     } else if ($scope.totalItems <= 5) {
                         $scope.paginationShow = false;
-                        // $scope.notMyArticle = true;
                     } else {
                         $scope.paginationShow = true;
                     }
                 })
             }
             reques(0);
-
             $scope.changePage = (currentPage) => {
-                // console.log(currentPage)
-                // console.log((currentPage - 1) * 5);
                 reques((currentPage - 1) * 5);
             }
             if (token == null) {
@@ -104,7 +88,6 @@
                             }).$promise.then((res) => {
                                 $scope.show = true;
                                 element.profile.following = res.profile.following;
-
                             })
                         } else {
                             getAllArticle.followDelete().Delete({
@@ -112,14 +95,11 @@
                             }).$promise.then((res) => {
                                 $scope.show = false;
                                 element.profile.following = res.profile.following;
-
                             })
                         }
                     }
-
                 }
             }
-
             $scope.submit = function (article, ele) {
                 if ($window.localStorage.getItem('username') != undefined) {
                     if (!article.favorited) {
@@ -136,5 +116,4 @@
                 }
             }
         });
-
 })();

@@ -1,4 +1,7 @@
-app.component('home', {
-    templateUrl: 'templates/home.html',
-    controller: 'homeController'
-})
+(() => {
+    angular.module("BlogApp")
+        .component('home', {
+            templateUrl: 'templates/home.html',
+            controller: 'homeController'
+        })
+})();
