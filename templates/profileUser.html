@@ -1,0 +1,80 @@
+<div class="profile-page">
+    <!-- Profile user -->
+    <div class="user-info">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-xs-12 col-md-10 offset-md-1">
+                    <img ng-src="{{ profile.image }}" class="user-img" />
+                    <h4>{{ profile.username }}</h4>
+                    <p>{{profile.bio}}</p>
+                    <button class="btn btn-sm btn-outline-secondary action-btn" ng-click='follow(profile,this)'
+                        ng-model="showFollow" ng-show='!show'>
+                        <i class="ion-plus-round"></i>
+                        &nbsp;
+                        {{showFollow}} {{ profile.username }}
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary" ng-click='follow(profile,this)' ng-show='show'>
+                        <i class="ion-plus-round"></i>
+                        &nbsp;
+                        unFollow <span class="counter">{{profile.username}}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article of user -->
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xs-12 col-md-10 offset-md-1">
+                <div class="articles-toggle">
+                    <ul class="nav nav-pills outline-active">
+                        <li class="nav-item">
+                            <a class="nav-link" ui-sref="profileUser({articles: articles.author.username})" ng-class="{active: isFeed}"
+                                ng-click="load('My')">My
+                                Articles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ui-sref="profileUser.myAticle({articles: articles.author.username})"
+                                ng-class="{active: !isFeed}" ng-click="load('Favorited')">Favorited
+                                Articles</a>
+                        </li>
+                    </ul>
+                </div>
+                <br>
+                <ui-view>
+                    <p ng-show="notMyArticle">No articles are here... yet.</p>
+                    <div class="article-preview" ng-repeat="article in articles">
+                        <div class="article-meta">
+                            <a ui-sref="profileUser({username: article.author.username})"><img ng-src="{{ article.author.image }}" /></a>
+                            <div class="info">
+                                <a ui-sref="profileUser({username: article.author.username})" class="author">{{article.author.username}}</a>
+                                <span class="date">{{article.createdAt | date: "MMMM dd, yyyy"}}</span>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm pull-xs-right" ng-click='submit(article, this)'>
+                                <i class="ion-heart"></i> {{article.favoritesCount}}
+                            </button><br>
+                        </div>
+                        <a ui-sref='article({slug: article.slug})' class="preview-link">
+                            <h1>{{article.title}}</h1>
+                            <p>{{article.description}}</p>
+                            <span>Read more...</span>
+                        </a>
+                        <ul class="tag-list pull-xs-right">
+                            <li class="tag-pill tag-default " ng-repeat='tag in article.tagList'>{{tag}}</li>
+                        </ul>
+                    </div>
+                    <!-- Pagination -->
+                    <div>
+                        <a href="#" uib-pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages"
+                            class="pagination" direction-links="false" items-per-page="itemsPerPage" total-items='totalItems'
+                            ng-change='changePage(currentPage)' ng-show="paginationShow"></a>
+                    </div>
+                </ui-view>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END CONTENT -->

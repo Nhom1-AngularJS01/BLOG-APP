@@ -1,0 +1,161 @@
+
+<div class="article-page">
+
+    <div class="banner">
+        <div class="container">
+
+            <h1>{{article.title}}</h1>
+
+            <div class="article-meta">
+                <a ui-sref="profileUser({username: article.author.username})"><img ng-src="{{article.author.image}}" /></a>
+                <div class="info">
+                    <a ui-sref="profileUser({username: article.author.username})" class="author">{{article.author.username}}</a>
+                    <span class="date">{{article.createdAt|date:'MMMM d, y'}}</span>
+                </div>
+                <span ng-show='!isActicle'>
+                    <button class="btn btn-sm btn-outline-secondary" ng-click='follow(article,this)' ng-show='!show'>
+                        <i class="ion-plus-round"></i>
+                        &nbsp;
+                        Follow <span class="counter">{{article.author.username}}</span>
+                    </button>
+
+                    <button class="btn btn-sm btn-outline-secondary" ng-click='follow(article,this)' ng-show='show'>
+                        <i class="ion-plus-round"></i>
+                        &nbsp;
+                        unFollow <span class="counter">{{article.author.username}}</span>
+                    </button>
+
+
+                    &nbsp;&nbsp;
+                    <button class="btn btn-sm btn-outline-primary" ng-click='favorites(article,this)' ng-show='!Favorite'>
+                        <i class="ion-heart"></i>
+                        &nbsp;
+                        Favorite Article <span class="counter">({{favoritesCount}})</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-primary" ng-click='favorites(article,this)' ng-show='Favorite'>
+                        <i class="ion-heart"></i>
+                        &nbsp;
+                        UnFavorite Article <span class="counter">({{favoritesCount}})</span>
+                    </button>
+                </span>
+
+                <span ng-show="isActicle">
+                    <a class="btn btn-outline-secondary btn-sm" ui-sref="newArticle({slug: article.slug})">
+                        <i class="ion-edit"></i> Edit Article
+                    </a>
+
+                    <button class="btn btn-outline-danger btn-sm" ng-click="deleteArticle()">
+                        <i class="ion-trash-a"></i> Delete Article
+                    </button>
+
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container page">
+
+        <div class="row article-content">
+            <div class="col-md-12">
+                <p>
+                    {{article.body}}
+                </p>
+                <h2 id="introducing-ionic"> {{article.description}}</h2>
+            </div>
+        </div>
+        <ul class="tag-list" ng-repeat='article in article.tagList'>
+            <li class="tag-default tag-pill tag-outline">{{article}}</li>
+        </ul>
+
+        <hr />
+
+        <div class="article-actions">
+            <div class="article-meta">
+                <a ui-sref="profile"><img ng-src="{{article.author.image}}" /></a>
+                <div class="info">
+                    <a ui-sref="profile" class="author">{{article.author.username}}</a>
+                    <span class="date">{{article.createdAt|date:'MMMM d, y'}}</span>
+                </div>
+                <span ng-show='!isActicle'>
+                    <button class="btn btn-sm btn-outline-secondary" ng-click='follow(article,this)' ng-show='!show'>
+                        <i class="ion-plus-round"></i>
+                        &nbsp;
+                        Follow <span class="counter">{{article.author.username}}</span>
+                    </button>
+
+                    <button class="btn btn-sm btn-outline-secondary" ng-click='follow(article,this)' ng-show='show'>
+                        <i class="ion-plus-round"></i>
+                        &nbsp;
+                        unFollow <span class="counter">{{article.author.username}}</span>
+                    </button>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-sm btn-outline-primary" ng-click='favorites(article,this)' ng-show='!Favorite'>
+                        <i class="ion-heart"></i>
+                        &nbsp;
+                        Favorite Article <span class="counter">({{favoritesCount}})</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-primary" ng-click='favorites(article,this)' ng-show='Favorite'>
+                        <i class="ion-heart"></i>
+                        &nbsp;
+                        UnFavorite Article <span class="counter">({{favoritesCount}})</span>
+                    </button>
+                </span>
+                <span ng-show="isActicle">
+                    <a class="btn btn-outline-secondary btn-sm" ui-sref="newArticle({slug: article.slug})">
+                        <i class="ion-edit"></i> Edit Article
+                    </a>
+
+                    <button class="btn btn-outline-danger btn-sm" ng-click="deleteArticle()">
+                        <i class="ion-trash-a"></i> Delete Article
+                    </button>
+
+                </span>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-8 offset-md-2">
+                <span ng-show='isLogin'>
+                    <form class="card comment-form">
+                        <div class="card-block">
+                            <textarea class="form-control" placeholder="Write a comment..." rows="3" ng-model='arena'></textarea>
+                        </div>
+                        <div class="card-footer">
+                            <img ng-src="{{img}}" class="comment-author-img"/>
+                            <button class="btn btn-sm btn-primary" ng-click='postComment()'>
+                                Post Comment
+                            </button>
+                        </div>
+                    </form>
+                </span>
+                <span ng-show='!isLogin'>
+                    <p style="display: inherit;">
+                        <a  ui-sref='signIn'>Sign in</a> or <a ui-sref='signUp'>sign
+                            up</a> to add comments on this article.
+                    </p>
+                </span>
+                <div class="card" ng-repeat='comment in comments'>
+                    <div class="card-block">
+                        <p class="card-text">{{comment.body}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="comment-author">
+                            <img ng-src="{{comment.author.image}}" class="comment-author-img" />
+                        </a>
+                        &nbsp;
+                        <a href="#" class="comment-author">{{comment.author.username}}</a>
+                        <span class="date-posted">{{comment.createdAt|date:'MMMM d, y'}}</span>
+                        <span class="mod-options" ng-show='{{comment.ismyComment}}'>
+                            <i class="ion-trash-a" ng-click="deleteCb(comment.id)"></i>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

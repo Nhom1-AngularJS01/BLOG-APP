@@ -1,1 +1,1 @@
-var app = angular.module('BlogApp', ['ui.router','ngResource', 'ui.bootstrap']);
+var app = angular.module('BlogApp', ['ui.router','ngResource', 'ui.bootstrap', 'article']);

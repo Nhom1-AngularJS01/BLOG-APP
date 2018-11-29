@@ -13,7 +13,7 @@
             <div class="col-md-9">
                 <div class="feed-toggle">
                     <ul class="nav nav-pills outline-active">
-                        <li class="nav-item" ng-class='{auth: feed}' >
+                        <li class="nav-item" ng-hide='feed' >
                             <a id='yourFe' class="nav-link" ng-click='yourFeed()' href="#">Your 
                                 Feed</a>
                         </li>
@@ -29,17 +29,16 @@
                 <br>
                 <div class="article-preview" ng-repeat='art in articals'>
                     <div class="article-meta">
-                        <a href="profile.html"><img src="{{art.author.image}}" /></a>
+                        <a ui-sref="profileUser({username: art.author.username})"><img src="{{art.author.image}}" /></a>
                         <div class="info">
-                            <a href="" class="author">{{art.author.username}}</a>
-                            <span class="date">{{art.createdAt | date:'dd/MM/yyyy'}}</span>
+                            <a ui-sref="profileUser({username: art.author.username})" class="author">{{art.author.username}}</a>
+                            <span class="date">{{art.createdAt | date: "MMMM dd, yyyy"}}</span>
                         </div>
                         <button class="btn btn-outline-primary btn-sm pull-xs-right" ng-click='submit(art, this)'>
                             <i class="ion-heart"></i>{{art.favoritesCount}}
-                            <span>{{art.favorited}}</span>
                         </button>
                     </div>
-                    <a href="" class="preview-link">
+                    <a ui-sref='article({slug: art.slug})' class="preview-link">
                         <div>
                             <h1>{{art.title}}</h1>
                             <p>{{art.description}}</p>

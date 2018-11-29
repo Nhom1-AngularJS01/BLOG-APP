@@ -4,6 +4,11 @@
 
             <div class="col-md-6 offset-md-3 col-xs-12">
                 <h1 class="text-xs-center">Your Settings</h1>
+                <ul style="color:#B85C5C !important; font-weight: bold;">
+                    <li ng-repeat="err in emailErr">email {{err}}</li>
+                    <li ng-repeat="err in passwordErr">password {{err}}</li>
+                    <li ng-repeat="err in usernameErr">username {{err}}</li>
+                </ul>
 
                 <form>
                     <fieldset>
@@ -14,7 +19,8 @@
                             <input class="form-control form-control-lg" type="text" placeholder="Your Name" ng-model="username">
                         </fieldset>
                         <fieldset class="form-group">
-                            <textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you" ng-model="bio"></textarea>
+                            <textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you"
+                                ng-model="bio"></textarea>
                         </fieldset>
                         <fieldset class="form-group">
                             <input class="form-control form-control-lg" type="text" placeholder="Email" ng-model="email">

@@ -1,0 +1,27 @@
+<p ng-show="notArticle">No articles are here... yet.</p>
+<div class="article-preview" ng-repeat="article in articles">
+    <div class="article-meta">
+        <a ui-sref="profileUser({username: article.author.username})"><img ng-src="{{ article.author.image }}" /></a>
+        <div class="info">
+            <a ui-sref="profileUser({username: article.author.username})" class="author">{{article.author.username}}</a>
+            <span class="date">{{article.createdAt | date: "MMMM dd, yyyy"}}</span>
+        </div>
+        <button class="btn btn-outline-primary btn-sm pull-xs-right" ng-click='submit(article, this)'>
+            <i class="ion-heart"></i> {{article.favoritesCount}}
+        </button><br>
+    </div>
+    <a ui-sref='article({slug: article.slug})' class="preview-link">
+        <h1>{{article.title}}</h1>
+        <p>{{article.description}}</p>
+        <span>Read more...</span>
+    </a>
+    <ul class="tag-list pull-xs-right">
+        <li class="tag-pill tag-default" ng-repeat='tag in article.tagList'>{{tag}}</li>
+    </ul>
+</div>
+<!-- Pagination -->
+<div>
+    <a href="#" uib-pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages" class="pagination"
+        direction-links="false" items-per-page="itemsPerPage" total-items='totalItems' ng-change='changePage(currentPage)'
+        ng-show="paginationShow"></a>
+</div>

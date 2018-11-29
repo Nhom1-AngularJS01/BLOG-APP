@@ -13,41 +13,39 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.7.5/angular-resource.js"></script>
     <script src="lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <!-- Import the custom Bootstrap 4 theme from our hosted CDN -->    
-    <!-- <link rel="stylesheet" href="css/ui-bootstrap-2.5.0-csp.css"> -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="//demo.productionready.io/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
 </head>
 
 <body ng-app="BlogApp" ng-controller='controller'>
-
     <nav class="navbar navbar-light">
         <div class="container">
             <a class="navbar-brand" ui-sref='home'>conduit</a>
             <ul class="nav navbar-nav pull-xs-right">
                 <li class="nav-item">
-                    <!-- Add "active" class when you're on that page" -->
                     <a class="nav-link" ui-sref='home'>Home</a>
                 </li>
-                <li class="nav-item" ng-hide={{isHeader}}>
+                <li class="nav-item" ng-hide='isHeader'>
                     <a class="nav-link" ui-sref='signIn' >Sign in</a>
                 </li>
 
-                <li class="nav-item" ng-hide={{isHeader}}>
+                <li class="nav-item" ng-hide='isHeader'>
                     <a class="nav-link" ui-sref='signUp'>Sign up</a>
                 </li>
-                <li class="nav-item" ng-hide={{!isHeader}}>
-                    <a class="nav-link " href="">
+                <li class="nav-item" ng-hide='!isHeader'>
+                    <a class="nav-link " ui-sref="newArticle({slug: ''})">
                       <i class="ion-compose"></i>&nbsp;New Article
                     </a>
                   </li>
-                  <li class="nav-item" ng-hide={{!isHeader}}>
+                  <li class="nav-item" ng-hide='!isHeader'>
                     <a class="nav-link auth" ui-sref="settings">
                       <i class="ion-gear-a"></i>&nbsp;Settings
                     </a>
                   </li>
-                  <li class="nav-item" ng-hide={{!isHeader}}>
-                    <a class="nav-link" href="">{{user}}</a>
+                  <li class="nav-item" ng-hide='!isHeader'>
+                    <a class="nav-link" ui-sref="profileUser({username: user})">{{user}}</a>
                   </li>
             </ul>
         </div>
@@ -65,12 +63,18 @@
         </div>
     </footer>
     <script src="js/module/module.js"></script>
-    <script src="js/controller/controller-diu.js"></script>
-    <script src="js/controller/controller-hai.js"></script>
-    <script src="js/service/service-diu.js"></script>
-    <script src="js/service/service-hai.js"></script>
-    <script src="js/ui-router/router-diu.js"></script>
-    <script src="js/ui-router/routing-hai.js"></script>
+    <script src="js/controller/home.controller.js"></script>
+    <script src="js/controller/logIn.controller.js"></script>
+    <script src="js/controller/article.controller.js"></script>
+    <script src="js/controller/favoritedArt.controller.js"></script>
+    <script src="js/controller/newArticle.controler.js"></script>
+    <script src="js/controller/myArt.controller.js"></script>
+    <script src="js/controller/setting.controller.js"></script>
+
+    <script src="js/service/home.service.js"></script>
+    <script src="js/service/article.service.js"></script>
+
+    <script src="js/ui-router/router.js"></script>
     <script src="js/component/component.js"></script>
 </body>
 

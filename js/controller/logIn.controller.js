@@ -1,0 +1,68 @@
+// var app = angular.module("BlogApp");
+var APIURL = "https://conduit.productionready.io/api";
+
+app.controller("UserSignIn", function ($scope, $http, $window, $state, $rootScope) {
+  // $scope.visible = true;
+  $scope.logIn = function () {
+    let email = $scope.email;
+    let password = $scope.password;
+    let req = {
+      method: `POST`,
+      data: { user: { email: `${email}`, password: `${password}` } },
+      url: `${APIURL}/users/login`
+    };
+    $scope.isInvisible = false;
+
+    $http(req)
+      .then(function (response) {
+        $scope.visible = true;
+        console.log($scope.visible);
+        $window.localStorage.setItem(`token`, response.data.user.token);
+        $window.localStorage.setItem(`username`, response.data.user.username);
+        $rootScope.isHeader = true;
+
+        $rootScope.user = response.data.user.username;
+        console.log($rootScope.user)
+
+        $state.go(`home`);
+      })
+      .catch(function (response) {
+        $scope.isInvisible = true;
+      });
+  };
+});
+
+app.controller("UserSignUp", function ($scope, $http, $window, $state) {
+  $scope.isError = false;
+
+  $scope.register = function () {
+    let data = {
+      user: {
+        username: $scope.username,
+        email: $scope.email,
+        password: $scope.password
+      }
+    };
+    let req = {
+      method: `POST`,
+      data: data,
+      url: `${APIURL}/users`
+    };
+    $http(req)
+      .then(function (response) {
+        let data = response.data.user;
+        $window.localStorage.setItem(`token`, data.token);
+        $window.localStorage.setItem(`username`, data.username);
+        $state.go(`home`);
+      })
+      .catch(function (response) {
+        console.log(response.data.errors);
+        $scope.isError = true;
+        $scope.emailErr = response.data.errors.email;
+        $scope.passwordErr = response.data.errors.password;
+        $scope.usernameErr = response.data.errors.username;
+      });
+  };
+
+});
+
