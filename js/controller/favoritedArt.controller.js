@@ -9,7 +9,7 @@
                 if ($stateParams.username == $window.localStorage.getItem('username')) {
                     var req = {
                         method: "GET",
-                        url: `https://conduit.productionready.io/api/articles?author=${$stateParams.username}&limit=5&offset=${offset}`,
+                        url: `https://conduit.productionready.io/api/articles?favorited=${$stateParams.username}&limit=5&offset=${offset}`,
                         headers : {
                             'Authorization': `Token ${token}`
                         }
@@ -17,7 +17,7 @@
                 } else {
                     var req = {
                         method: "GET",
-                        url: `https://conduit.productionready.io/api/articles?author=${$stateParams.username}&limit=5&offset=${offset}`
+                        url: `https://conduit.productionready.io/api/articles?favorited=${$stateParams.username}&limit=5&offset=${offset}`
                     }
                 }
                 $http(req).then(data => {
