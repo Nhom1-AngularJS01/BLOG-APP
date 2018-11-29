@@ -1,7 +1,7 @@
 (() => {
     angular.module("BlogApp")
         .component('home', {
-            templateUrl: 'templates/home.html',
+            templateUrl: 'Home/home.html',
             controller: 'homeController'
         })
 })();
