@@ -21,7 +21,8 @@
 </div>
 <!-- Pagination -->
 <div>
-    <a href="#" uib-pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages" class="pagination"
+    <a href="#" uib-pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages" class="pagination-page"
         direction-links="false" items-per-page="itemsPerPage" total-items='totalItems' ng-change='changePage(currentPage)'
         ng-show="paginationShow"></a>
-</div>
+    <p ng-show="paginationShow">This is Page No.{{currentPage}}</p>
+</div> 

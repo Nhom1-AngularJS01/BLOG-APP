@@ -14,10 +14,10 @@
                         &nbsp;
                         {{showFollow}} {{ profile.username }}
                     </button>
-                    <button class="btn btn-sm btn-outline-secondary" ng-click='follow(profile,this)' ng-show='show'>
+                    <button class="btn btn-sm btn-outline-secondary pull-xs-right" ng-click='follow(profile,this)' ng-show='show'>
                         <i class="ion-plus-round"></i>
                         &nbsp;
-                        unFollow <span class="counter">{{profile.username}}</span>
+                        UnFollow <span class="counter">{{profile.username}}</span>
                     </button>
                 </div>
             </div>
@@ -69,8 +69,9 @@
                     <!-- Pagination -->
                     <div>
                         <a href="#" uib-pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages"
-                            class="pagination" direction-links="false" items-per-page="itemsPerPage" total-items='totalItems'
+                            class="pagination-page" direction-links="false" items-per-page="itemsPerPage" total-items='totalItems'
                             ng-change='changePage(currentPage)' ng-show="paginationShow"></a>
+                        <p ng-show="paginationShow">This is Page No.{{currentPage}}</p>
                     </div>
                 </ui-view>
             </div>

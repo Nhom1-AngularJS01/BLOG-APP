@@ -1,6 +1,6 @@
 (() => {
     angular.module("BlogApp")
-        .controller("ProfileUser", function ($stateParams, $state, $scope, $http, $window, getAllArticle, FavorService) {
+        .controller("ProfileUser", function ProfileUser($stateParams, $state, $scope, $http, $window, getAllArticle, FavorService) {
             var token = $window.localStorage.getItem('token');
             var request;
             if (token != null) {
@@ -36,7 +36,6 @@
             } else {
                 $scope.showFollow = "Follow "
             }
-            console.log($scope.showFollow);
             var reques = function (offset) {
                 if ($stateParams.username == $window.localStorage.getItem('username')) {
                     var req = {
