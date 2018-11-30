@@ -27,8 +27,11 @@
     display: none;
 }
 
-.btn-active {
+.btnAc {
     color: #fff;
-    background-color: red;
+    background-color: #5CB85C;
     border-color: #5CB85C;
+}
+.btnFoll {
+    color: black;
 }

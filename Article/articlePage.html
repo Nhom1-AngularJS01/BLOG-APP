@@ -13,13 +13,13 @@
                     <span class="date">{{article.createdAt|date:'MMMM d, y'}}</span>
                 </div>
                 <span ng-show='!isActicle'>
-                    <button class="btn btn-sm btn-outline-secondary" ng-click='follow(article,this)' ng-show='!show'>
+                    <button class="btn btn-sm" ng-click='follow(article,this)' ng-show='!show' ng-class="{btnFoll: show, 'btn-outline-secondary': !show}">
                         <i class="ion-plus-round"></i>
                         &nbsp;
                         Follow <span class="counter">{{article.author.username}}</span>
                     </button>
 
-                    <button class="btn btn-sm btn-outline-secondary" ng-click='follow(article,this)' ng-show='show'>
+                    <button class="btn btn-sm" ng-click='follow(article,this)' ng-show='show' ng-class="{btnFoll: show, 'btn-outline-secondary': !show}">
                         <i class="ion-plus-round"></i>
                         &nbsp;
                         UnFollow <span class="counter">{{article.author.username}}</span>
@@ -27,12 +27,12 @@
 
 
                     &nbsp;&nbsp;
-                    <button class="btn btn-sm btn-outline-primary" ng-click='favorites(article,this)' ng-show='!Favorite'>
+                    <button class="btn btn-sm" ng-click='favorites(article,this)' ng-show='!Favorite' ng-class="{btnAc: article.favorited, 'btn-outline-primary': !article.favorited}">
                         <i class="ion-heart"></i>
                         &nbsp;
                         Favorite Article <span class="counter">({{favoritesCount}})</span>
                     </button>
-                    <button class="btn btn-sm btn-outline-primary" ng-click='favorites(article,this)' ng-show='Favorite'>
+                    <button class="btn btn-sm" ng-click='favorites(article,this)' ng-show='Favorite' ng-class="{btnAc: article.favorited, 'btn-outline-primary': !article.favorited}">
                         <i class="ion-heart"></i>
                         &nbsp;
                         UnFavorite Article <span class="counter">({{favoritesCount}})</span>
@@ -78,24 +78,24 @@
                     <span class="date">{{article.createdAt|date:'MMMM d, y'}}</span>
                 </div>
                 <span ng-show='!isActicle'>
-                    <button class="btn btn-sm btn-outline-secondary" ng-click='follow(article,this)' ng-show='!show'>
+                    <button class="btn btn-sm" ng-click='follow(article,this)' ng-show='!show' ng-class="{btnFoll: show, 'btn-outline-secondary': !show}">
                         <i class="ion-plus-round"></i>
                         &nbsp;
                         Follow <span class="counter">{{article.author.username}}</span>
                     </button>
 
-                    <button class="btn btn-sm btn-outline-secondary" ng-click='follow(article,this)' ng-show='show'>
+                    <button class="btn btn-sm" ng-click='follow(article,this)' ng-show='show' ng-class="{btnFoll: show, 'btn-outline-secondary': !show}">
                         <i class="ion-plus-round"></i>
                         &nbsp;
                         UnFollow <span class="counter">{{article.author.username}}</span>
                     </button>
                     &nbsp;&nbsp;
-                    <button class="btn btn-sm btn-outline-primary" ng-click='favorites(article,this)' ng-show='!Favorite'>
+                    <button class="btn btn-sm" ng-click='favorites(article,this)' ng-show='!Favorite' ng-class="{btnAc: article.favorited, 'btn-outline-primary': !article.favorited}">
                         <i class="ion-heart"></i>
                         &nbsp;
                         Favorite Article <span class="counter">({{favoritesCount}})</span>
                     </button>
-                    <button class="btn btn-sm btn-outline-primary" ng-click='favorites(article,this)' ng-show='Favorite'>
+                    <button class="btn btn-sm" ng-click='favorites(article,this)' ng-show='Favorite' ng-class="{btnAc: article.favorited, 'btn-outline-primary': !article.favorited}">
                         <i class="ion-heart"></i>
                         &nbsp;
                         UnFavorite Article <span class="counter">({{favoritesCount}})</span>

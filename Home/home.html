@@ -34,8 +34,8 @@
                             <a ui-sref="profileUser({username: art.author.username})" class="author">{{art.author.username}}</a>
                             <span class="date">{{art.createdAt | date: "MMMM dd, yyyy"}}</span>
                         </div>
-                        <button class="btn btn-outline-primary btn-sm pull-xs-right" ng-click='submit(art, this)'>
-                            <i class="ion-heart"></i>{{art.favoritesCount}}
+                        <button class="btn btn-sm pull-xs-right" ng-click='submit(art, this)' ng-class="{btnAc: art.favorited, 'btn-outline-primary': !art.favorited}">
+                            <i class="ion-heart"></i> {{art.favoritesCount}}
                         </button>
                     </div>
                     <a ui-sref='article({slug: art.slug})' class="preview-link">

@@ -6,7 +6,7 @@
             <a ui-sref="profileUser({username: article.author.username})" class="author">{{article.author.username}}</a>
             <span class="date">{{article.createdAt | date: "MMMM dd, yyyy"}}</span>
         </div>
-        <button class="btn btn-outline-primary btn-sm pull-xs-right" ng-click='submit(article, this)'>
+        <button class="btn btn-sm pull-xs-right" ng-click='submit(article, this)' ng-class="{btnAc: article.favorited, 'btn-outline-primary': !article.favorited}">
             <i class="ion-heart" ></i> {{article.favoritesCount}}
         </button><br>
     </div>
