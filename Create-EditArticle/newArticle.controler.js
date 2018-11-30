@@ -10,15 +10,12 @@
         }
         $scope.tags = "";
         $scope.tagListn = [...$scope.tagList];
-        console.log($scope.tagListn);
       };
       $scope.deleteTag = function () {
         if ($scope.tagList.has(this.tag)) {
           $scope.tagList.delete(this.tag);
-          console.log('xoa set', $scope.tagList)
           $scope.tagListn = [...$scope.tagList];
         }
-        console.log('xoa', $scope.tagListn);
       };
       var editor = function (method, slug) {
         let data = {

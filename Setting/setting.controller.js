@@ -3,7 +3,6 @@
   angular.module("BlogApp")
     .controller("Settings", function ($scope, $http, $window, $state, $rootScope) {
       let token = $window.localStorage.getItem(`token`);
-      console.log(token);
       let req = {
         method: `GET`,
         url: `${APIURL}/user`,
@@ -19,7 +18,6 @@
         $window.localStorage.removeItem(`username`);
         $rootScope.isHeader = false;
         $rootScope.user = undefined;
-        console.log($rootScope.isHeader);
         $state.go(`home`);
       };
       $scope.isErr = false;
@@ -40,7 +38,6 @@
           headers: { Authorization: `Token ${token}` }
         };
         $http(req).then(function (res) {
-          console.log(res);
           $window.localStorage.setItem(`username`, res.data.user.username);
           $rootScope.user = $window.localStorage.getItem(`username`);
           $state.go(`profileUser`, { username: res.data.user.username })

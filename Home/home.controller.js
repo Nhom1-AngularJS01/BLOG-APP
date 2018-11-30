@@ -11,7 +11,6 @@
         })
         .controller('homeController', ['$scope', 'TagsSerive', 'PreArticalsService', '$rootScope', 'YourFeedsService', 'FavorService', '$window', '$state', function ($scope, TagsSerive, PreArticalsService, $rootScope, YourFeedsService, FavorService, $window, $state) {
             var token = $window.localStorage.getItem(`token`);
-            console.log(token);
             $scope.myTag = false;
             $scope.tagSelect = '';
             var tagDisplay;
@@ -33,7 +32,6 @@
                 yourFe = document.querySelector('#yourFe');
                 yourFe.style.color = 'rgb(131, 233, 131)';
                 YourFeedsService.getYourFeed(10, 0, token).then(function (res) {
-                    console.log(res);
                     $scope.articals = res.articles;
                     $scope.totalItems = res.articlesCount;
                     $scope.numPages = $scope.totalItems / $scope.itemsPerPage;
@@ -63,7 +61,6 @@
                 }
             }
             $scope.changePage = function () {
-                console.log($scope.currentPage);
                 activePage();
                 if ($scope.hasTag == 0 && $scope.hasYour == 0) {
                     PreArticalsService.getArtical(10, ($scope.currentPage - 1) * 10).then(function (res) {
@@ -98,7 +95,6 @@
                     $scope.previousPage = 1;
                 });
             }
-
             $scope.yourFeed = function () {
                 tagDisplay.style.display = 'none';
                 $scope.hasTag = 0;
@@ -118,11 +114,9 @@
                 $scope.hasYour = 0;
                 $scope.tagSelect = tag;
                 tagDisplay.style.display = 'block';
-
                 $scope.myTag = true;
                 $scope.isGlobal = false;
                 yourFe.style.color = 'grey';
-
                 PreArticalsService.getArtical(10, 0, tag).then(function (res) {
                     $scope.articals = res.articles;
                     $scope.totalItems = res.articlesCount;
@@ -131,7 +125,6 @@
                     activePage(); $scope.previousPage = 1;
 
                 });
-
             }
             $scope.submit = function (art, element) {
                 if ($rootScope.user != undefined) {

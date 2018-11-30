@@ -7,7 +7,7 @@
             <span class="date">{{article.createdAt | date: "MMMM dd, yyyy"}}</span>
         </div>
         <button class="btn btn-outline-primary btn-sm pull-xs-right" ng-click='submit(article, this)'>
-            <i class="ion-heart"></i> {{article.favoritesCount}}
+            <i class="ion-heart" ></i> {{article.favoritesCount}}
         </button><br>
     </div>
     <a ui-sref='article({slug: article.slug})' class="preview-link">

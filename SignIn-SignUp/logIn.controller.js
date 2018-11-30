@@ -14,14 +14,10 @@
         $http(req)
           .then(function (response) {
             $scope.visible = true;
-            console.log($scope.visible);
             $window.localStorage.setItem(`token`, response.data.user.token);
             $window.localStorage.setItem(`username`, response.data.user.username);
             $rootScope.isHeader = true;
-
             $rootScope.user = response.data.user.username;
-            console.log($rootScope.user)
-
             $state.go(`home`);
           })
           .catch(function (response) {
@@ -52,7 +48,6 @@
             $state.go(`home`);
           })
           .catch(function (response) {
-            console.log(response.data.errors);
             $scope.isError = true;
             $scope.emailErr = response.data.errors.email;
             $scope.passwordErr = response.data.errors.password;
