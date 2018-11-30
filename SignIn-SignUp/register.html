@@ -4,7 +4,8 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign up</h1>
         <p class="text-xs-center"><a ui-sref="signIn">Have an account?</a></p>
-        <ul style="color: firebrick" ng-show="isError" >
+        <ul style="color: #B85C5C !important;
+    font-weight: bold;" ng-show="isError" >
           <li ng-repeat="err in emailErr">email {{err}}</li>
           <li ng-repeat="err in passwordErr">password {{err}}</li>
           <li ng-repeat="err in usernameErr">username {{err}}</li>
