@@ -1,6 +1,7 @@
 (() => {
   angular.module("BlogApp")
     .controller("editor", function ($scope, $http, $window, $state, $stateParams, getAllArticle) {
+      var APIURL = "https://conduit.productionready.io/api";
       $scope.isError = false;
       let token = $window.localStorage.getItem(`token`);
       $scope.tagList = new Set();
