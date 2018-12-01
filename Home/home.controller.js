@@ -13,117 +13,134 @@
             var token = $window.localStorage.getItem(`token`);
             $scope.myTag = false;
             $scope.tagSelect = '';
-            var tagDisplay;
-            var yourFe;
-            var page;
+            $scope.currentPage = 1;
+            $scope.prePage = 1;
+            $scope.itemsPerPage = 10;
             $scope.hasTag = 0;
+            var init = function () {
+                $scope.pages = [];
+                for (let i = 0; i < $scope.numPages; i++) {
+                    if (i === $scope.currentPage - 1) {
+                        $scope.pages.push({ num: i + 1, active: true });
+                    } else {
+                        $scope.pages.push({ num: i + 1, active: false });
+                    }
+                }
+                if ($scope.totalItems === 0) {
+                    $scope.paginationShow = false;
+                    $scope.notMyArticle = true;
+                } else if ($scope.totalItems <= 10) {
+                    $scope.notMyArticle = false;
+                    $scope.paginationShow = false;
+                } else {
+                    $scope.notMyArticle = false;
+                    $scope.paginationShow = true;
+                }
+            }
+
             if ($rootScope.user == null) {
                 $scope.hasYour = 0;
-                $scope.feed = true;
+                $scope.feed = false;
+                $scope.show = false;
                 $scope.isGlobal = true;
-                PreArticalsService.getArtical().then(function (res) {
+                $scope.myTag = false;
+                PreArticalsService.getArtical(10, 0, null, token).then(function (res) {
                     $scope.articals = res.articles;
                     $scope.totalItems = res.articlesCount;
-                });
+                    $scope.numPages = $scope.totalItems / $scope.itemsPerPage;
+                    init();
+                })
             } else {
-                $scope.feed = false;
+                $scope.feed = true;
+                $scope.show = true;
                 $scope.isGlobal = false;
+                $scope.myTag = false;
                 $scope.hasYour = 1;
-                yourFe = document.querySelector('#yourFe');
-                yourFe.style.color = 'rgb(131, 233, 131)';
                 YourFeedsService.getYourFeed(10, 0, token).then(function (res) {
                     $scope.articals = res.articles;
                     $scope.totalItems = res.articlesCount;
                     $scope.numPages = $scope.totalItems / $scope.itemsPerPage;
+                    init();
                 });
             }
+
             TagsSerive.getTags().then(function (res) {
                 $scope.tags = res.tags;
             });
-            $scope.numPages = $scope.totalItems / $scope.itemsPerPage;
-            $scope.currentPage = 1;
-            $scope.previousPage = 1;
-            $scope.itemsPerPage = 10;
-            tagDisplay = document.getElementById("tag");
-            yourFe = document.querySelector('#yourFe');
-            window.addEventListener('load', function () {
-                page = document.getElementsByClassName('pagination-page');
-                page[1].getElementsByTagName('a')[0].style.background = '#5CB85C';
-                page[1].getElementsByTagName('a')[0].style.color = 'white';
-            })
-            var activePage = function () {
-                page = document.getElementsByClassName('pagination-page');
-                page[$scope.currentPage].getElementsByTagName('a')[0].style.background = '#5CB85C';
-                page[$scope.currentPage].getElementsByTagName('a')[0].style.color = 'white';
-                if (!($scope.currentPage === 1 && $scope.previousPage === 1)) {
-                    page[$scope.previousPage].getElementsByTagName('a')[0].style.background = 'white';
-                    page[$scope.previousPage].getElementsByTagName('a')[0].style.color = 'black';
+
+            $scope.changePage = function (num) {
+                if (num != $scope.currentPage) {
+                    $scope.prePage = $scope.currentPage;
+                    $scope.currentPage = num;
+                    $scope.pages[$scope.currentPage - 1].active = true;
+                    $scope.pages[$scope.prePage - 1].active = false;
+
+                    if ($scope.hasTag == 0 && $scope.hasYour == 0) {
+                        PreArticalsService.getArtical(10, (num - 1) * 10, null, token).then(function (res) {
+                            $scope.articals = res.articles;
+                            $scope.totalItems = res.articlesCount;
+                        });
+                    } else if ($scope.hasYour == 1) {
+                        YourFeedsService.getYourFeed(10, (num - 1) * 10, token).then(function (res) {
+                            $scope.articals = res.articles;
+                            $scope.totalItems = res.articlesCount;
+                        });
+                    } else {
+                        PreArticalsService.getArtical(10, (num - 1) * 10, $scope.tagSelect, token).then(function (res) {
+                            $scope.articals = res.articles;
+                            $scope.totalItems = res.articlesCount;
+                        });
+                    }
                 }
-            }
-            $scope.changePage = function () {
-                activePage();
-                if ($scope.hasTag == 0 && $scope.hasYour == 0) {
-                    PreArticalsService.getArtical(10, ($scope.currentPage - 1) * 10).then(function (res) {
-                        $scope.articals = res.articles;
-                        $scope.totalItems = res.articlesCount;
-                    });
-                } else if ($scope.hasYour == 1) {
-                    YourFeedsService.getYourFeed(10, ($scope.currentPage - 1) * 10, token).then(function (res) {
-                        $scope.articals = res.articles;
-                    });
-                } else {
-                    PreArticalsService.getArtical(10, ($scope.currentPage - 1) * 10, $scope.tagSelect).then(function (res) {
-                        $scope.articals = res.articles;
-                        $scope.totalItems = res.articlesCount;
-                    });
-                }
-                $scope.previousPage = $scope.currentPage;
             }
             $scope.globalFeed = function () {
                 $scope.hasTag = 0;
                 $scope.hasYour = 0;
                 $scope.myTag = false;
                 $scope.isGlobal = true;
-                tagDisplay.style.display = 'none';
-                yourFe.style.color = 'grey';
+                $scope.feed = false;
 
-                PreArticalsService.getArtical().then(function (res) {
+                PreArticalsService.getArtical(10, 0, null, token).then(function (res) {
                     $scope.articals = res.articles;
                     $scope.totalItems = res.articlesCount;
+                    $scope.numPages = $scope.totalItems / $scope.itemsPerPage;
                     $scope.currentPage = 1;
-                    activePage();
-                    $scope.previousPage = 1;
+                    init();
+                    $scope.prePage = 1;
                 });
             }
+
             $scope.yourFeed = function () {
-                tagDisplay.style.display = 'none';
                 $scope.hasTag = 0;
                 $scope.hasYour = 1;
+                $scope.myTag = false;
                 $scope.isGlobal = false;
-                yourFe.style.color = 'rgb(131, 233, 131)';
+                $scope.feed = true;
+
                 YourFeedsService.getYourFeed(10, 0, token).then(function (res) {
                     $scope.articals = res.articles;
                     $scope.totalItems = res.articlesCount;
                     $scope.currentPage = 1;
                     $scope.numPages = $scope.totalItems / $scope.itemsPerPage;
-                    activePage(); $scope.previousPage = 1;
+                    init();
+                    $scope.prePage = 1;
                 });
             }
             $scope.clickTag = function (tag) {
                 $scope.hasTag = 1;
                 $scope.hasYour = 0;
                 $scope.tagSelect = tag;
-                tagDisplay.style.display = 'block';
                 $scope.myTag = true;
                 $scope.isGlobal = false;
-                yourFe.style.color = 'grey';
-                PreArticalsService.getArtical(10, 0, tag).then(function (res) {
+                $scope.feed = false;
+
+                PreArticalsService.getArtical(10, 0, tag, token).then(function (res) {
                     $scope.articals = res.articles;
                     $scope.totalItems = res.articlesCount;
                     $scope.numPages = $scope.totalItems / $scope.itemsPerPage;
                     $scope.currentPage = 1;
-                    activePage(); $scope.previousPage = 1;
-
+                    init();
+                    $scope.prePage = 1;
                 });
             }
             $scope.submit = function (art, element) {

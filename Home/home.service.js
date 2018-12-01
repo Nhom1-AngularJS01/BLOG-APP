@@ -12,10 +12,20 @@
         })
 
         .service('PreArticalsService', function ($http) {
-            this.getArtical = function (limit = 10, offset = 0, tag) {
+            this.getArtical = function (limit = 10, offset = 0, tag, token) {
                 var url = `${baseUrl}/articles?limit=${limit}&offset=${offset}`;
-                if (tag != undefined) {
+
+                if (tag != null) {
                     url = `${baseUrl}/articles?limit=${limit}&offset=${offset}&tag=${tag}`
+                }
+                if (token != null) {
+                    var headers = {
+                        'Authorization': `Token ${token}`
+                    };
+                    return $http.get(`${url}`, { headers: headers })
+                        .then(function (response) {
+                            return response.data;
+                        })
                 }
                 return $http.get(`${url}`)
                     .then(function (response) {

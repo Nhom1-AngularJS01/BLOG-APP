@@ -13,8 +13,9 @@
             <div class="col-md-9">
                 <div class="feed-toggle">
                     <ul class="nav nav-pills outline-active">
-                        <li class="nav-item" ng-hide='feed' >
-                            <a id='yourFe' class="nav-link" ng-click='yourFeed()' href="#">Your 
+                        <li class="nav-item">
+                            <a id='yourFe' class="nav-link" ng-click='yourFeed()' ng-class='{active: feed, disable: !feed}'
+                                ng-show='show' href="#">Your
                                 Feed</a>
                         </li>
                         <li class="nav-item">
@@ -22,11 +23,13 @@
                                 Feed</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id='tag' ng-class='{active: myTag}' href="#" ng-click='clickTag(tagSelect)'>{{tagSelect}}</a>
+                            <a class="nav-link" id='tag' ng-class='{active: myTag}' ng-show='myTag' href="#" ng-click='clickTag(tagSelect)'>{{tagSelect}}</a>
                         </li>
                     </ul>
                 </div>
                 <br>
+                <p ng-show="notMyArticle">No articles are here... yet.</p>
+
                 <div class="article-preview" ng-repeat='art in articals'>
                     <div class="article-meta">
                         <a ui-sref="profileUser({username: art.author.username})"><img src="{{art.author.image}}" /></a>
@@ -34,8 +37,8 @@
                             <a ui-sref="profileUser({username: art.author.username})" class="author">{{art.author.username}}</a>
                             <span class="date">{{art.createdAt | date: "MMMM dd, yyyy"}}</span>
                         </div>
-                        <button class="btn btn-sm pull-xs-right" ng-click='submit(art, this)' ng-class="{btnAc: art.favorited, 'btn-outline-primary': !art.favorited}">
-                            <i class="ion-heart"></i> {{art.favoritesCount}}
+                        <button class="btn btn-sm pull-xs-right" ng-click='submit(art, this)' ng-class='{btnAc: art.favorited, "btn-outline-primary": !art.favorited}'>
+                            <i class="ion-heart" ng-class='{btnAc: art.favorited}'></i>{{art.favoritesCount}}
                         </button>
                     </div>
                     <a ui-sref='article({slug: art.slug})' class="preview-link">
@@ -51,11 +54,12 @@
                     </a>
 
                 </div>
-                <div id='page'>
-                    <ul uib-pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages" class="pagination-page"
-                        direction-links="false" items-per-page="itemsPerPage" total-items='totalItems' ng-change='changePage()'></ul>
-                    <p>This is Page No.{{currentPage}}</p>
-                </div>
+                <!-- Pagination -->
+                <ul ng-show='paginationShow'>
+                    <li class="pagination-page" ng-repeat='page in pages'>
+                        <a ng-class="{'btnAc': page.active}" ng-click='changePage(page.num)'>{{page.num}}</a>
+                    </li>
+                </ul>
 
             </div>
 

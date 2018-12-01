@@ -13,15 +13,14 @@
 }
 .pagination-page a:hover{
     background-color:#ddd;
+    cursor: pointer;
 }
-
-.active-page{
+/* .active-page{
     background-color:#5CB85C;
-}
+} */
 .article-preview{
     overflow: auto;
     overflow-x: hidden;
-    /* display: inline-block; */
 }
 .auth{
     display: none;
@@ -32,6 +31,10 @@
     background-color: #5CB85C;
     border-color: #5CB85C;
 }
-.btnFoll {
+
+.followAc{
     color: black;
+}
+.disable{
+    color: grey
 }

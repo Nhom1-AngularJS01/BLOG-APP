@@ -6,8 +6,8 @@
             <a ui-sref="profileUser({username: article.author.username})" class="author">{{article.author.username}}</a>
             <span class="date">{{article.createdAt | date: "MMMM dd, yyyy"}}</span>
         </div>
-        <button class="btn btn-sm pull-xs-right" ng-click='submit(article, this)' ng-class="{btnAc: article.favorited, 'btn-outline-primary': !article.favorited}">
-            <i class="ion-heart" ></i> {{article.favoritesCount}}
+        <button class="btn btn-sm pull-xs-right" ng-click='submit(article, this)' ng-class='{btnAc: article.favorited, "btn-outline-primary": !article.favorited}'>
+            <i class="ion-heart"></i> {{article.favoritesCount}}
         </button><br>
     </div>
     <a ui-sref='article({slug: article.slug})' class="preview-link">
@@ -20,9 +20,8 @@
     </ul>
 </div>
 <!-- Pagination -->
-<div>
-    <a href="#" uib-pagination total-items="totalItems" ng-model="currentPage" num-pages="numPages" class="pagination-page"
-        direction-links="false" items-per-page="itemsPerPage" total-items='totalItems' ng-change='changePage(currentPage)'
-        ng-show="paginationShow"></a>
-    <p ng-show="paginationShow">This is Page No.{{currentPage}}</p>
-</div> 
+<ul ng-show='paginationShow'>
+    <li class="pagination-page" ng-repeat='page in pages'>
+        <a ng-class="{'btnAc': page.active}" ng-click='changePage(page.num)'>{{page.num}}</a>
+    </li>
+</ul>

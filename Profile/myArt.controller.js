@@ -1,8 +1,12 @@
 (() => {
     angular.module("BlogApp")
-        .controller("ProfileUser", function ProfileUser($stateParams, $state, $scope, $http, $window, getAllArticle, FavorService) {
+        .controller("ProfileUser", function ($stateParams, $state, $scope, $http, $window, getAllArticle, FavorService) {
             var token = $window.localStorage.getItem('token');
             var request;
+            $scope.currentPage = 1;
+            $scope.prePage = 1;
+            $scope.notMyArticle = false;
+            $scope.isFeed = true;
             if (token != null) {
                 request = {
                     method: "GET",
@@ -21,8 +25,7 @@
                 ({ data: { profile: $scope.profile } } = data);
                 $scope.show = $scope.profile.following;
             });
-            $scope.notArticle = false;
-            $scope.isFeed = true;
+
             $scope.load = (select) => {
                 if (select === 'My' && $scope.isFeed === false) {
                     $scope.isFeed = true;
@@ -55,8 +58,17 @@
                     ({ data: { articles: $scope.articles } } = data);
                     $scope.totalItems = data.data.articlesCount;
                     $scope.notMyArticle = false;
-                    $scope.currentPage = 1;
                     $scope.itemsPerPage = 5;
+                    $scope.numPages = $scope.totalItems / $scope.itemsPerPage;
+                    $scope.pages = [];
+                    for (let i = 0; i < $scope.numPages; i++) {
+                        if (i === $scope.currentPage - 1) {
+                            $scope.pages.push({ num: i + 1, active: true });
+                        } else {
+                            $scope.pages.push({ num: i + 1, active: false });
+                        }
+
+                    }
                     if ($scope.totalItems === 0) {
                         $scope.paginationShow = false;
                         $scope.notMyArticle = true;
@@ -68,8 +80,14 @@
                 })
             }
             reques(0);
-            $scope.changePage = (currentPage) => {
-                reques((currentPage - 1) * 5);
+            $scope.changePage = (num) => {
+                if (num != $scope.currentPage) {
+                    reques((num - 1) * 5);
+                    $scope.prePage = $scope.currentPage;
+                    $scope.currentPage = num;
+                    $scope.pages[$scope.currentPage - 1].active = true;
+                    $scope.pages[$scope.prePage - 1].active = false;
+                }
             }
             if (token == null) {
                 $scope.follow = (profile, element) => {
@@ -97,6 +115,7 @@
                             })
                         }
                     }
+
                 }
             }
             $scope.submit = function (article, ele) {
