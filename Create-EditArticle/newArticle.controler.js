@@ -5,6 +5,11 @@
       $scope.isError = false;
       let token = $window.localStorage.getItem(`token`);
       $scope.tagList = new Set();
+      $scope.articleTitle = "";
+      $scope.subject = "";
+      $scope.content = "";
+      $scope.tagListn = [];
+
       $scope.putTag = function () {
         if (!$scope.tagList.has($scope.tags) || $scope.tags !== "") {
           $scope.tagList.add($scope.tags);
@@ -33,6 +38,8 @@
           url: `${APIURL}/articles/${slug}`,
           headers: { Authorization: `Token ${token}` }
         };
+        console.log(data);
+        console.log(req);
         $http(req)
           .then(function successCallBack(response) {
             $scope.isError = false;

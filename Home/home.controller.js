@@ -1,6 +1,6 @@
 (() => {
     angular.module("BlogApp")
-        .controller('controller', function ($state, $rootScope, $scope, $window) {
+        .controller('controller', function ($state, $rootScope, $window) {
             $rootScope.user = $window.localStorage.getItem(`username`);
             if ($rootScope.user == undefined) {
                 $rootScope.isHeader = false;
