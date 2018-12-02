@@ -38,8 +38,7 @@
           url: `${APIURL}/articles/${slug}`,
           headers: { Authorization: `Token ${token}` }
         };
-        console.log(data);
-        console.log(req);
+
         $http(req)
           .then(function successCallBack(response) {
             $scope.isError = false;
