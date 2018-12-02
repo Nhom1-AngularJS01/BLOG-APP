@@ -25,7 +25,7 @@
           });
       };
     })
-    .controller("UserSignUp", function ($scope, $http, $window, $state) {
+    .controller("UserSignUp", function ($scope, $http, $window, $state, $rootScope) {
       $scope.isError = false;
       $scope.register = function () {
         let data = {
@@ -45,6 +45,8 @@
             let data = response.data.user;
             $window.localStorage.setItem(`token`, data.token);
             $window.localStorage.setItem(`username`, data.username);
+            $rootScope.isHeader = true;
+            $rootScope.user = response.data.user.username;
             $state.go(`home`);
           })
           .catch(function (response) {
