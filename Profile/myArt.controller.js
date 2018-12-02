@@ -35,7 +35,7 @@
                 }
             }
             if ($stateParams.username == $window.localStorage.getItem('username')) {
-                $scope.showFollow = "Edit ";
+                $scope.showFollow = "Edit Profile ";
             } else {
                 $scope.showFollow = "Follow "
             }
@@ -95,7 +95,7 @@
                 }
             } else {
                 $scope.follow = (profile, element) => {
-                    if ($scope.showFollow == "Edit ") {
+                    if ($scope.showFollow == "Edit Profile ") {
                         $state.go('settings')
                     } else {
 
