@@ -10,6 +10,7 @@
                 let token = $window.localStorage.getItem('token')
                 let slug = $stateParams.slug;
                 $scope.myuser = $window.localStorage.getItem('username');
+                $scope.cmt = '';
                 function GETcomment() {
                     getAllArticle.getComments().query({
                         slug: `${slug}`
@@ -117,11 +118,14 @@
                     },
                         {
                             comment: {
-                                body: $scope.arena
+                                body: $scope.cmt
                             }
                         }).$promise.then(() => {
-                            $scope.arena = '';
+                            $scope.cmt = '';
                             GETcomment();
+                        })
+                        .catch((res) => {
+                            $scope.errors = res.data.errors.body;
                         })
                 }
                 $scope.deleteCb = (id) => {
