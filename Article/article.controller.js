@@ -9,22 +9,22 @@
             function ($scope, getAllArticle, $window, $state, $stateParams) {
                 let token = $window.localStorage.getItem('token')
                 let slug = $stateParams.slug;
-                $scope.myuser = $window.localStorage.getItem('username');
+                $scope.myUser = $window.localStorage.getItem('username');
                 $scope.cmt = '';
-                function GETcomment() {
+                function getAllComment() {
                     getAllArticle.getComments().query({
                         slug: `${slug}`
                     }).$promise.then((comment) => {
                         $scope.comments = comment.comments;
                         $scope.comments.map((comment) => {
-                            if (comment.author.username == $scope.myuser) {
+                            if (comment.author.username == $scope.myUser) {
                                 return comment.ismyComment = true;
                             }
                         })
                     })
                 }
                 if (token == null) {
-                    getAllArticle.Article().queryNotToken({
+                    getAllArticle.article().queryNotToken({
                         slug: `${slug}`
                     }).$promise.then((user) => {
                         $scope.article = user.article;
@@ -36,13 +36,13 @@
                         $scope.comments = comment.comments;
                     })
                 } else {
-                    getAllArticle.Article().query({
+                    getAllArticle.article().query({
                         slug: `${slug}`
                     }).$promise.then((user) => {
                         $scope.article = user.article;
                         $scope.favoritesCount = user.article.favoritesCount;
                         userArticle = $scope.article.author.username;
-                        if (userArticle == $scope.myuser) {
+                        if (userArticle == $scope.myUser) {
                             $scope.isActicle = true;
                         } else $scope.isActicle = false;
                         if ($scope.article.favorited == true) {
@@ -57,7 +57,7 @@
                             } else $scope.show = true;
                         })
                     })
-                    GETcomment();
+                    getAllComment();
                 }
                 if (token == null) {
                     $scope.follow = (article, element) => {
@@ -66,14 +66,14 @@
                 } else {
                     $scope.follow = (article, element) => {
                         if (article.author.following == false) {
-                            getAllArticle.followDelete().Follow({
+                            getAllArticle.followDelete().follow({
                                 UserName: `${userArticle}`
                             }).$promise.then((res) => {
                                 $scope.show = true;
                                 element.article.author.following = res.profile.following;
                             })
                         } else {
-                            getAllArticle.followDelete().Delete({
+                            getAllArticle.followDelete().delete({
                                 UserName: `${userArticle}`
                             }).$promise.then((res) => {
                                 $scope.show = false;
@@ -89,7 +89,7 @@
                 } else {
                     $scope.favorites = (article, element) => {
                         if (article.favorited == true) {
-                            getAllArticle.getFavorite().Delete({
+                            getAllArticle.getFavorite().delete({
                                 slug: `${slug}`
                             }).$promise.then((res) => {
                                 element.article.favorited = res.article.favorited;
@@ -97,7 +97,7 @@
                                 $scope.favoritesCount = res.article.favoritesCount;
                             })
                         } else {
-                            getAllArticle.getFavorite().Post({
+                            getAllArticle.getFavorite().post({
                                 slug: `${slug}`
                             }).$promise.then((res) => {
                                 element.article.favorited = res.article.favorited;
@@ -122,22 +122,22 @@
                             }
                         }).$promise.then(() => {
                             $scope.cmt = '';
-                            GETcomment();
+                            getAllComment();
                         })
                         .catch((res) => {
                             $scope.errors = res.data.errors.body;
                         })
                 }
                 $scope.deleteCb = (id) => {
-                    getAllArticle.Deletecomment().Delete({
+                    getAllArticle.deleteComment().delete({
                         slug: `${slug}`,
                         id: `${id}`
                     }).$promise.then(() => {
-                        GETcomment();
+                        getAllComment();
                     })
                 }
                 $scope.deleteArticle = () => {
-                    getAllArticle.Article().Delete({
+                    getAllArticle.article().delete({
                         slug: `${slug}`
                     }).$promise.then(() => {
                         $state.go('home')

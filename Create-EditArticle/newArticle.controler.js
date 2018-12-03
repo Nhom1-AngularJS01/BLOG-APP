@@ -59,7 +59,7 @@
           editor('POST', '');
         };
       } else {
-        getAllArticle.Article().query({ slug: $stateParams.slug }).$promise.then(res => {
+        getAllArticle.article().query({ slug: $stateParams.slug }).$promise.then(res => {
           $scope.articleTitle = res.article.title;
           $scope.subject = res.article.description;
           $scope.content = res.article.body;

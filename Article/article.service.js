@@ -7,7 +7,7 @@
     let token='Token '+$window.localStorage.getItem('token')
     
     return {
-      Article:function () {
+      article:function () {
         return $resource(
           APIUrl + '/articles/:slug', {}, {
             'query': {
@@ -27,7 +27,7 @@
                 slug: '@slug'
               },
             },
-            'Delete':{
+            'delete':{
                 method: 'DELETE',
                 params: {
                   slug: '@slug'
@@ -64,7 +64,7 @@
       getFavorite:function () {
         return $resource(
           APIUrl + '/articles/:slug/favorite', {}, {
-            'Post': {
+            'post': {
               method: 'POST',
               params: {
                 slug: '@slug'
@@ -75,7 +75,7 @@
                 "Authorization": `${token}`
               }
             },
-            'Delete': {
+            'delete': {
               method: 'DELETE',
               params: {
                 slug: '@slug'
@@ -109,7 +109,7 @@
       followDelete:function(){
         return $resource(
           APIUrl + '/profiles/:UserName/follow', {}, {
-            'Follow': {
+            'follow': {
               method: 'POST',
               params: {
                 UserName: '@UserName'
@@ -120,7 +120,7 @@
                 "Authorization": `${token}`
               }
             },
-            'Delete': {
+            'delete': {
               method: 'DELETE',
               params: {
                 UserName: '@UserName'
@@ -134,10 +134,10 @@
           }
         );
       },
-      Deletecomment:function () {
+      deleteComment:function () {
         return $resource(
           APIUrl + '/articles/:slug/comments/:id', {}, {
-            'Delete': {
+            'delete': {
               method: 'DELETE',
               params: {
                 UserName: '@UserName',
