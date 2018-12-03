@@ -1,13 +1,13 @@
 (() => {
   var services = angular.module('article', []);
   var APIUrl = 'https://conduit.productionready.io/api';
-  
-  services.factory('getAllArticle', function ($resource,$window) {
 
-    let token='Token '+$window.localStorage.getItem('token')
-    
+  services.factory('getAllArticle', function ($resource, $window) {
+    getToken = function () {
+      return 'Token ' + $window.localStorage.getItem('token')
+    }
     return {
-      article:function () {
+      article: function () {
         return $resource(
           APIUrl + '/articles/:slug', {}, {
             'query': {
@@ -18,7 +18,7 @@
               headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": getToken()
               }
             },
             'queryNotToken': {
@@ -27,21 +27,21 @@
                 slug: '@slug'
               },
             },
-            'delete':{
-                method: 'DELETE',
-                params: {
-                  slug: '@slug'
-                },
-                headers: {
-                  'Accept': 'application/json',
-                  "Content-Type": "application/json",
-                  "Authorization": `${token}`
-                }
-            },  
+            'delete': {
+              method: 'DELETE',
+              params: {
+                slug: '@slug'
+              },
+              headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json",
+                "Authorization": getToken()
+              }
+            },
           }
         );
       },
-      getComments:function () {
+      getComments: function () {
         return $resource(
           APIUrl + '/articles/:slug/comments', {}, {
             'query': {
@@ -55,13 +55,13 @@
               headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": getToken()
               }
             }
           }
         )
       },
-      getFavorite:function () {
+      getFavorite: function () {
         return $resource(
           APIUrl + '/articles/:slug/favorite', {}, {
             'post': {
@@ -72,7 +72,7 @@
               headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": getToken()
               }
             },
             'delete': {
@@ -83,13 +83,13 @@
               headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": getToken()
               }
             }
           }
         )
       },
-      getFollowing:function () {
+      getFollowing: function () {
         return $resource(
           APIUrl + '/profiles/:UserName', {}, {
             'following': {
@@ -100,13 +100,13 @@
               headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": getToken()
               }
             },
           }
         )
       },
-      followDelete:function(){
+      followDelete: function () {
         return $resource(
           APIUrl + '/profiles/:UserName/follow', {}, {
             'follow': {
@@ -117,7 +117,7 @@
               headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": getToken()
               }
             },
             'delete': {
@@ -128,13 +128,13 @@
               headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": getToken()
               }
             },
           }
         );
       },
-      deleteComment:function () {
+      deleteComment: function () {
         return $resource(
           APIUrl + '/articles/:slug/comments/:id', {}, {
             'delete': {
@@ -146,7 +146,7 @@
               headers: {
                 'Accept': 'application/json',
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                "Authorization": getToken()
               }
             },
           }
