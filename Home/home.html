@@ -38,7 +38,7 @@
                             <span class="date">{{art.createdAt | date: "MMMM dd, yyyy"}}</span>
                         </div>
                         <button class="btn btn-sm pull-xs-right" ng-click='submit(art, this)' ng-class='{btnAc: art.favorited, "btn-outline-primary": !art.favorited}'>
-                            <i class="ion-heart" ng-class='{btnAc: art.favorited}'></i>{{art.favoritesCount}}
+                            <i class="ion-heart" ng-class='{btnAc: art.favorited}'></i> {{art.favoritesCount}}
                         </button>
                     </div>
                     <a ui-sref='article({slug: art.slug})' class="preview-link">

@@ -71,9 +71,9 @@
 
         <div class="article-actions">
             <div class="article-meta">
-                <a ui-sref="profile"><img ng-src="{{article.author.image}}" /></a>
+                <a ui-sref="profileUser({username: comment.author.username})"><img ng-src="{{article.author.image}}" /></a>
                 <div class="info">
-                    <a ui-sref="profile" class="author">{{article.author.username}}</a>
+                    <a ui-sref="profileUser({username: comment.author.username})" class="author">{{article.author.username}}</a>
                     <span class="date">{{article.createdAt|date:'MMMM d, y'}}</span>
                 </div>
                 <span ng-show='!isActicle'>
