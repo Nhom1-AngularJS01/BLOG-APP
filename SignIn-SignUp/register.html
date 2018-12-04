@@ -4,27 +4,56 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign up</h1>
         <p class="text-xs-center"><a ui-sref="signIn">Have an account?</a></p>
-        <ul style="color: firebrick" ng-show="isError" >
-          <li ng-repeat="err in emailErr">email {{err}}</li>
-          <li ng-repeat="err in passwordErr">password {{err}}</li>
-          <li ng-repeat="err in usernameErr">username {{err}}</li>
+        <ul ng-hide="hideErr" style="color:#B85C5C !important; font-weight: bold;">
+          <li ng-show="isError" ng-repeat="err in emailErr">email {{ err }}</li>
+          <li ng-show="isError" ng-repeat="err in passwordErr">password {{ err }}</li>
+          <li ng-show="isError" ng-repeat="err in usernameErr">username {{ err }}</li>
         </ul>
-        <form name="myForm">
+        <!-- <ul
+          ng-show="myForm.username.$dirty && myForm.email.$dirty && myForm.password.$dirty"
+          style="color:#B85C5C !important; font-weight: bold;"
+        >
+          <li ng-show="isError" ng-repeat="err in emailErr">email {{ err }}</li>
+        </ul> -->
+        <ul style="color:#B85C5C !important; font-weight: bold;" ng-show="myForm.username.$dirty && myForm.username.$invalid">
+          <li ng-show="myForm.username.$error.required">username is required</li>
+          <li ng-show="myForm.username.$error.minlength">username is 1 character minlength</li>
+          <li ng-show="myForm.username.$error.maxlength">username is 20 character maxlength</li>
+        </ul>
+
+        <ul style="color:#B85C5C !important; font-weight: bold;" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+          <li ng-show="myForm.email.$error.required">email is required</li>
+          <li ng-show="myForm.email.$error.pattern">email is invalid type</li>
+        </ul>
+
+        <ul style="color:#B85C5C !important; font-weight: bold;" ng-show="myForm.password.$dirty && myForm.password.$invalid">
+          <li ng-show="myForm.password.$error.required">password is required</li>
+          <li ng-show="myForm.password.$error.minlength">password is 8 character minlength</li> 
+        </ul>
+        <form name="myForm" ng-submit="register()" novalidate>
           <fieldset class="form-group">
             <input
               class="form-control form-control-lg"
               type="text"
               placeholder="Username"
               ng-model="username"
+              name="username"
+              required
+              ng-minlength="1"
+              ng-maxlength="20"
+              ng-keydown="turnOffNotify()"
             />
           </fieldset>
           <fieldset class="form-group">
             <input
               class="form-control form-control-lg"
-              type="email"
               placeholder="Email"
               ng-model="email"
-            />
+              name="email"
+              required
+              ng-pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+              ng-keydown="turnOffNotify()"              
+              />
           </fieldset>
           <fieldset class="form-group">
             <input
@@ -33,9 +62,15 @@
               placeholder="Password"
               ng-model="password"
               name="password"
+              required
+              ng-minlength="8"
+              ng-keydown="turnOffNotify()"
             />
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right" ng-click="register()">
+          <button
+            class="btn btn-lg btn-primary pull-xs-right"
+            type="submit"
+          >
             Sign up
           </button>
         </form>

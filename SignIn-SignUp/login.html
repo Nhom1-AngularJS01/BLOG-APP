@@ -4,20 +4,50 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Sign in</h1>
         <p class="text-xs-center"><a ui-sref="signUp">Need an account?</a></p>
-        <ul>
-          <li style="color:red" ng-show="isInvisible">
-            Email or Password is invalid
+        <ul ng-hide="hideErr" style="color:#B85C5C !important; font-weight: bold;">
+          <li ng-show="isInvisible">Email or Password is invalid, please enter the right account</li>
+        </ul>
+        <!-- <ul
+          ng-show="myForm.myEmail.$dirty && myForm.myPassword.$dirty"
+          style="color:#B85C5C !important; font-weight: bold;"
+        >
+          <li ng-show="isInvisible">Email or Password is invalid, please enter the right account</li>
+        </ul> -->
+        <ul
+          ng-show="myForm.myEmail.$dirty && myForm.myEmail.$invalid"
+          style="color:#B85C5C !important; font-weight: bold;"
+        >
+          <li ng-show="myForm.myEmail.$error.required">Email is required</li>
+          <li ng-show="myForm.myEmail.$error.pattern">Email is invalid</li>
+        </ul>
+
+        <ul
+          ng-show="myForm.myPassword.$dirty && myForm.myPassword.$invalid"
+          style="color:#B85C5C !important; font-weight: bold;"
+        >
+          <li ng-show="myForm.myPassword.$error.required">
+            Password is required
+          </li>
+          <li ng-show="myForm.myPassword.$error.minlength">
+            Password is too short (minimum is 8 character)
           </li>
         </ul>
-        <form>
+        <form name="myForm" ng-submit="logIn()" novalidate>
           <fieldset class="form-group">
             <input
               class="form-control form-control-lg"
-              type="email"
+              ng-pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
               placeholder="Email"
               ng-model="email"
               required
+              name="myEmail"
+              ng-keydown="turnOffNotify()"
             />
+            <i
+              class="fa fa-check text-success"
+              ng-show="myForm.myEmail.$dirty && myForm.myEmail.$valid"
+            >
+            </i>
           </fieldset>
           <fieldset class="form-group">
             <input
@@ -26,9 +56,20 @@
               placeholder="Password"
               ng-model="password"
               required
+              name="myPassword"
+              ng-minlength="8"
+              ng-keydown="turnOffNotify()"
             />
+            <i
+              class="fa fa-check text-success"
+              ng-show="myForm.myPassword.$dirty && myForm.myPassword.$valid"
+            >
+            </i>
           </fieldset>
-          <button class="btn btn-lg btn-primary pull-xs-right" ng-click="logIn()">
+          <button
+            class="btn btn-lg btn-primary pull-xs-right"
+            type="submit"
+          >
             Sign in
           </button>
         </form>
