@@ -1,3 +1,3 @@
 (() => {
-    angular.module('BlogApp', ['ui.router', 'ngResource', 'ui.bootstrap', 'article']);
+    angular.module('BlogApp', ['ui.router', 'ngResource', 'article']);
 })();

@@ -1,4 +1,3 @@
-
 <div class="article-page">
 
     <div class="banner">
@@ -122,7 +121,7 @@
                             <textarea class="form-control" placeholder="Write a comment..." rows="3" ng-model='cmt'></textarea>
                         </div>
                         <div class="card-footer">
-                            <img ng-src="{{img}}" class="comment-author-img"/>
+                            <img ng-src="{{img}}" class="comment-author-img" />
                             <button class="btn btn-sm btn-primary" ng-click='postComment()'>
                                 Post Comment
                             </button>
@@ -131,7 +130,7 @@
                 </span>
                 <span ng-show='!isLogin'>
                     <p style="display: inherit;">
-                        <a  ui-sref='signIn'>Sign in</a> or <a ui-sref='signUp'>sign
+                        <a ui-sref='signIn'>Sign in</a> or <a ui-sref='signUp'>sign
                             up</a> to add comments on this article.
                     </p>
                 </span>
@@ -140,11 +139,11 @@
                         <p class="card-text">{{comment.body}}</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="comment-author">
+                        <a ui-sref="profileUser({username: comment.author.username})" class="comment-author">
                             <img ng-src="{{comment.author.image}}" class="comment-author-img" />
                         </a>
                         &nbsp;
-                        <a href="#" class="comment-author">{{comment.author.username}}</a>
+                        <a ui-sref="profileUser({username: comment.author.username})" class="comment-author">{{comment.author.username}}</a>
                         <span class="date-posted">{{comment.createdAt|date:'MMMM d, y'}}</span>
                         <span class="mod-options" ng-show='{{comment.ismyComment}}'>
                             <i class="ion-trash-a" ng-click="deleteCb(comment.id)"></i>
