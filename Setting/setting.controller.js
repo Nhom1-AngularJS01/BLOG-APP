@@ -2,7 +2,7 @@
   var APIURL = "https://conduit.productionready.io/api";
   angular
     .module("BlogApp")
-    .controller("Settings", function(
+    .controller("Settings", function (
       $scope,
       $http,
       $window,
@@ -15,12 +15,14 @@
         url: `${APIURL}/user`,
         headers: { Authorization: `Token ${token}` }
       };
-      $http(req).then(function(response) {
+      $http(req).then(function (response) {
         let data = response.data.user;
+        $scope.url = data.image;
+        $scope.bio = data.bio;
         $scope.username = data.username;
         $scope.email = data.email;
       });
-      $scope.logOut = function() {
+      $scope.logOut = function () {
         $window.localStorage.removeItem(`token`);
         $window.localStorage.removeItem(`username`);
         $rootScope.isHeader = false;
@@ -29,7 +31,7 @@
       };
       $scope.isErr = false;
       $scope.hideMe = false;
-      $scope.update = function() {
+      $scope.update = function () {
         let data = {
           user: {
             username: $scope.username || "",
@@ -47,13 +49,13 @@
         };
 
         $http(req)
-          .then(function(res) {
+          .then(function (res) {
             $window.localStorage.setItem(`username`, res.data.user.username);
             $rootScope.user = $window.localStorage.getItem(`username`);
             alert("Update successfully !");
             $state.go(`profileUser`, { username: res.data.user.username });
           })
-          .catch(function(res) {
+          .catch(function (res) {
             $scope.isErr = true;
             $scope.hideMe = true;
             alert("Update unsuccessfully !");
