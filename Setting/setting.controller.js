@@ -35,8 +35,8 @@
             username: $scope.username || "",
             password: $scope.password || "",
             email: $scope.email || "",
-            bio: $scope.bio || "",
-            image: $scope.url || ""
+            bio: $scope.bio || null,
+            image: $scope.url || null
           }
         };
         let req = {
