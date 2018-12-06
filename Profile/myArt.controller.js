@@ -100,14 +100,14 @@
                     } else {
 
                         if (profile.following == false) {
-                            getAllArticle.followDelete().Follow({
+                            getAllArticle.followDelete().follow({
                                 UserName: `${$stateParams.username}`
                             }).$promise.then((res) => {
                                 $scope.show = true;
                                 element.profile.following = res.profile.following;
                             })
                         } else {
-                            getAllArticle.followDelete().Delete({
+                            getAllArticle.followDelete().delete({
                                 UserName: `${$stateParams.username}`
                             }).$promise.then((res) => {
                                 $scope.show = false;
