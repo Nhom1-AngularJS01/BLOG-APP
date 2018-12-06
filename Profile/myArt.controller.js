@@ -29,6 +29,7 @@
             $scope.load = (select) => {
                 if (select === 'My' && $scope.isFeed === false) {
                     $scope.isFeed = true;
+                    reques(0);
                 }
                 if (select === 'Favorited' && $scope.isFeed === true) {
                     $scope.isFeed = false;
