@@ -1,41 +1,56 @@
 <div class="settings-page">
-    <div class="container page">
-        <div class="row">
-            <div class="col-md-6 offset-md-3 col-xs-12">
-                <h1 class="text-xs-center">Your Settings</h1>
-                <ul style="color:#B85C5C !important; font-weight: bold;">
-                    <li ng-repeat="err in emailErr">email {{err}}</li>
-                    <li ng-repeat="err in passwordErr">password {{err}}</li>
-                    <li ng-repeat="err in usernameErr">username {{err}}</li>
-                </ul>
-                <form>
-                    <fieldset>
-                        <fieldset class="form-group">
-                            <input class="form-control" type="text" placeholder="URL of profile picture" ng-model="url">
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <input class="form-control form-control-lg" type="text" placeholder="Your Name" ng-model="username">
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you"
-                                ng-model="bio"></textarea>
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <input class="form-control form-control-lg" type="text" placeholder="Email" ng-model="email">
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <input class="form-control form-control-lg" type="password" placeholder="Password" ng-model="password">
-                        </fieldset>
-                        <button class="btn btn-lg btn-primary pull-xs-right" ng-click="update()">
-                            Update Settings
-                        </button>
-                    </fieldset>
-                </form>
-                <hr>
-                <button class="btn btn-outline-danger" ng-click="logOut()">
-                    Or click here to logout.
-                </button>
-            </div>
-        </div>
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Your Settings</h1>
+        <ul ng-show="isErr" style="color:#B85C5C !important; font-weight: bold;">
+          <li ng-repeat="err in emailErr">email {{ err }}</li>
+          <li ng-repeat="err in passwordErr">password {{ err }}</li>
+          <li ng-repeat="err in usernameErr">username {{ err }}</li>
+        </ul>
+          <ul ng-hide="hideMe" ng-show="myForm.username.$dirty && myForm.username.$invalid" style="color:#B85C5C !important; font-weight: bold;">
+            <li ng-show="myForm.username.$error.required">username can't be blank</li>
+            <li ng-show="myForm.username.$error.minlength">username is too short (minimum is 1 character)</li>
+            <li ng-show="myForm.username.$error.maxlength">username is too long (maximum is 20 character)</li>
+          </ul>
+          <ul ng-hide="hideMe" ng-show="myForm.email.$dirty && myForm.email.$invalid" style="color:#B85C5C !important; font-weight: bold;">
+            <li ng-show="myForm.email.$error.required">email can't be blank</li>
+            <li ng-show="myForm.email.$error.pattern">email is invalid type</li>
+          </ul>
+          <ul ng-hide="hideMe" ng-show="myForm.password.$dirty && myForm.password.$invalid" style="color:#B85C5C !important; font-weight: bold;">
+            <li ng-show="myForm.password.$error.minlength">password is too short (minimum is 8 character)</li>
+          </ul>
+
+        <form name="myForm" novalidate>
+          <fieldset>
+            <fieldset class="form-group">
+              <input class="form-control" type="text" placeholder="URL of profile picture" ng-model="url" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg" type="text" placeholder="Your Name" ng-model="username"
+                required ng-minlength="1" ng-maxlength="20" name="username" />
+            </fieldset>
+            <fieldset class="form-group">
+              <textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you" ng-model="bio"></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg" type="text" placeholder="Email" ng-model="email" required
+                ng-pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" name="email" />
+            </fieldset>
+            <fieldset class="form-group">
+              <input class="form-control form-control-lg" type="password" placeholder="Password" ng-model="password"
+                ng-minlength="8" name="password" />
+            </fieldset>
+            <button class="btn btn-lg btn-primary pull-xs-right" ng-click="update()">
+              Update Settings
+            </button>
+          </fieldset>
+        </form>
+        <hr />
+        <button class="btn btn-outline-danger" ng-click="logOut()">
+          Or click here to logout.
+        </button>
+      </div>
     </div>
+  </div>
 </div>
