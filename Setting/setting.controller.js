@@ -30,7 +30,6 @@
       $scope.isErr = false;
       $scope.hideMe = false;
       $scope.update = function() {
-        // console.log($scope.username);
         let data = {
           user: {
             username: $scope.username || "",
@@ -40,8 +39,6 @@
             image: $scope.url || ""
           }
         };
-        console.log(data);
-
         let req = {
           method: "PUT",
           data: data,
@@ -59,11 +56,10 @@
           .catch(function(res) {
             $scope.isErr = true;
             $scope.hideMe = true;
-            alert("Update unsuccessfully !")
+            alert("Update unsuccessfully !");
             $scope.emailErr = res.data.errors.email;
             $scope.passwordErr = res.data.errors.password;
             $scope.usernameErr = res.data.errors.username;
-            
           });
       };
     });
