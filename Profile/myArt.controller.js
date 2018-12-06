@@ -30,6 +30,10 @@
                 if (select === 'My' && $scope.isFeed === false) {
                     $scope.isFeed = true;
                     reques(0);
+                    $scope.currentPage = 1;
+                    $scope.prePage = 1;
+                    $scope.pages[$scope.currentPage - 1].active = true;
+                    $scope.pages[$scope.prePage - 1].active = false;
                 }
                 if (select === 'Favorited' && $scope.isFeed === true) {
                     $scope.isFeed = false;
