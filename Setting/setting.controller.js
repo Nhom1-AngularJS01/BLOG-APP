@@ -52,13 +52,11 @@
           .then(function (res) {
             $window.localStorage.setItem(`username`, res.data.user.username);
             $rootScope.user = $window.localStorage.getItem(`username`);
-            alert("Update successfully !");
             $state.go(`profileUser`, { username: res.data.user.username });
           })
           .catch(function (res) {
             $scope.isErr = true;
             $scope.hideMe = true;
-            alert("Update unsuccessfully !");
             $scope.emailErr = res.data.errors.email;
             $scope.passwordErr = res.data.errors.password;
             $scope.usernameErr = res.data.errors.username;

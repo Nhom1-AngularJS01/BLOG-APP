@@ -24,7 +24,6 @@
           $window.localStorage.setItem(`username`, response.data.user.username);
           $rootScope.isHeader = true;
           $rootScope.user = response.data.user.username;
-          alert("Login sucessfully");
           $state.go(`home`);
         })
         .catch(function() {
@@ -64,7 +63,6 @@
           $window.localStorage.setItem(`username`, data.username);
           $rootScope.isHeader = true;
           $rootScope.user = response.data.user.username;
-          alert("Register sucessfully");
           $state.go(`home`);
         })
         .catch(function(response) {
